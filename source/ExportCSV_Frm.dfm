@@ -1,42 +1,43 @@
 inherited FrmExportCSV: TFrmExportCSV
   Caption = 'Export des donn'#233'es CSV'
-  ClientHeight = 165
-  ClientWidth = 338
-  ExplicitWidth = 354
-  ExplicitHeight = 203
+  ClientHeight = 187
+  ClientWidth = 342
+  ExplicitWidth = 358
+  ExplicitHeight = 226
   PixelsPerInch = 96
   TextHeight = 16
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 338
-    Height = 98
+    Width = 342
+    Height = 113
     Align = alTop
     TabOrder = 0
+    ExplicitWidth = 365
     object Label1: TLabel
       Left = 8
-      Top = 20
+      Top = 36
       Width = 129
       Height = 16
       Caption = 'P'#233'riode d'#233'compte'
     end
     object Label2: TLabel
       Left = 16
-      Top = 48
+      Top = 64
       Width = 78
       Height = 16
       Caption = 'Total D'#233'dit'
     end
     object Label3: TLabel
       Left = 16
-      Top = 70
+      Top = 86
       Width = 82
       Height = 16
       Caption = 'Total Cr'#233'dit'
     end
     object txtTotalDebit: TLabel
       Left = 136
-      Top = 48
+      Top = 64
       Width = 100
       Height = 16
       Alignment = taRightJustify
@@ -44,7 +45,7 @@ inherited FrmExportCSV: TFrmExportCSV
     end
     object txtTotalCredit: TLabel
       Left = 136
-      Top = 70
+      Top = 86
       Width = 100
       Height = 16
       Alignment = taRightJustify
@@ -52,7 +53,7 @@ inherited FrmExportCSV: TFrmExportCSV
     end
     object spbInfoTotal: TSpeedButton
       Left = 280
-      Top = 56
+      Top = 72
       Width = 23
       Height = 22
       Glyph.Data = {
@@ -75,22 +76,38 @@ inherited FrmExportCSV: TFrmExportCSV
       NumGlyphs = 2
       OnClick = spbInfoTotalClick
     end
+    object Label4: TLabel
+      Left = 8
+      Top = 9
+      Width = 124
+      Height = 16
+      Caption = 'Compte Bancaire '
+    end
     object edPeriode: TPXDateEdit
       Left = 180
-      Top = 17
+      Top = 33
       Width = 121
       Height = 24
-      TabOrder = 0
+      TabOrder = 1
       Text = ''
       OnChange = edPeriodeChange
       DlgIncomplete = 'Votre Saisie est Incompl'#232'te'
       DlgError = 'Votre Saisie est Erron'#233'e'
       DateFormat = 'dd.mm.yy'
     end
+    object edBanqCpte: TEdit
+      Left = 180
+      Top = 6
+      Width = 121
+      Height = 24
+      CharCase = ecUpperCase
+      TabOrder = 0
+      OnKeyUp = edBanqCpteKeyUp
+    end
   end
   object btExportRecette: TButton
     Left = 32
-    Top = 112
+    Top = 131
     Width = 105
     Height = 41
     Caption = 'Export Recette'
@@ -100,7 +117,7 @@ inherited FrmExportCSV: TFrmExportCSV
   end
   object btEXportDepense: TButton
     Left = 180
-    Top = 112
+    Top = 131
     Width = 105
     Height = 41
     Caption = 'Export D'#233'pense'
@@ -112,5 +129,21 @@ inherited FrmExportCSV: TFrmExportCSV
     Optimize = False
     Left = 144
     Top = 112
+  end
+  object LookupDialog: TLookupDialog
+    LookupTable = qryF1
+    Caption = 'Aide'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    Left = 240
+    Top = 72
+  end
+  object qryF1: TOracleDataSet
+    Optimize = False
+    Left = 296
+    Top = 128
   end
 end

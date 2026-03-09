@@ -11,8 +11,12 @@ type
   TFrmComptaMain = class(TFrmDOAMain)
     mnuEditDecomptes: TMenuItem;
     mnuExport: TMenuItem;
+    mnuGestion: TMenuItem;
+    N3: TMenuItem;
+    mnuEditBanqCpte: TMenuItem;
     procedure mnuEditDecomptesClick(Sender: TObject);
     procedure mnuExportClick(Sender: TObject);
+    procedure mnuEditBanqCpteClick(Sender: TObject);
   private
     { Déclarations privées }
   public
@@ -30,7 +34,7 @@ var
   FrmComptaMain: TFrmComptaMain;
 
 implementation
-uses EditDecomptes_frm,ExportCSV_Frm;
+uses EditBanqCptes_Frm,EditDecomptes_frm,ExportCSV_Frm;
 {$R *.dfm}
 
 { TFrmComptaMain }
@@ -66,6 +70,21 @@ procedure TFrmComptaMain.LockMenuOnUnsuccessfulConnect;
 begin
   inherited;
   mnuEditDecomptes.Enabled:=False;
+end;
+
+//------------------------------------------------------------------------------
+procedure TFrmComptaMain.mnuEditBanqCpteClick(Sender: TObject);
+//------------------------------------------------------------------------------
+
+begin
+  inherited;
+  with TFrmEditBanqCptes.Create(self) do
+    try
+      ChangeOracleSession(self.oraSession);
+      ShowModal;
+    finally
+      Free;
+    end;
 end;
 
 //------------------------------------------------------------------------------

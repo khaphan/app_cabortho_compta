@@ -3,9 +3,19 @@ inherited FrmComptaMain: TFrmComptaMain
   PixelsPerInch = 96
   TextHeight = 15
   inherited mnMenu: TMainMenu
-    object mnuEditDecomptes: TMenuItem [1]
-      Caption = 'Saisie des D'#233'comptes'
-      OnClick = mnuEditDecomptesClick
+    object mnuGestion: TMenuItem [1]
+      Caption = 'Gestion'
+      object mnuEditDecomptes: TMenuItem
+        Caption = 'Saisie des D'#233'comptes'
+        OnClick = mnuEditDecomptesClick
+      end
+      object N3: TMenuItem
+        Caption = '-'
+      end
+      object mnuEditBanqCpte: TMenuItem
+        Caption = 'Gestion des Comptes Bancaires'
+        OnClick = mnuEditBanqCpteClick
+      end
     end
     object mnuExport: TMenuItem [2]
       Caption = 'Export'

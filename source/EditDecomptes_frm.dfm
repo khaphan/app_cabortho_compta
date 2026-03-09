@@ -23,6 +23,12 @@ inherited frmEditDecomptes: TfrmEditDecomptes
       Columns = <
         item
           Expanded = False
+          FieldName = 'BANQCPTE'
+          Title.Caption = 'Cpte Banq.'
+          Visible = True
+        end
+        item
+          Expanded = False
           FieldName = 'PERIODE_LIB'
           Title.Caption = 'P'#233'riode'
           Width = 73
@@ -38,8 +44,34 @@ inherited frmEditDecomptes: TfrmEditDecomptes
     end
     inherited pnSrch: TPanel
       Width = 681
-      Visible = False
       ExplicitWidth = 681
+      object Label4: TLabel [0]
+        Left = 16
+        Top = 8
+        Width = 75
+        Height = 15
+        Caption = 'Compte Banq.'
+      end
+      inherited btSrch: TButton
+        Left = 323
+        ExplicitLeft = 323
+      end
+      inherited ckbClearSearch: TCheckBox
+        Left = 423
+        Checked = False
+        State = cbUnchecked
+        Visible = False
+        ExplicitLeft = 423
+      end
+      object edSrchBanqCpte: TEdit
+        Left = 104
+        Top = 6
+        Width = 121
+        Height = 23
+        CharCase = ecUpperCase
+        TabOrder = 2
+        OnKeyUp = edSrchBanqCpteKeyUp
+      end
     end
   end
   inherited pnEdit: TPanel
@@ -47,19 +79,20 @@ inherited frmEditDecomptes: TfrmEditDecomptes
     Width = 683
     Height = 99
     Align = alBottom
-    ExplicitTop = 408
+    ExplicitLeft = 8
+    ExplicitTop = 413
     ExplicitWidth = 683
     ExplicitHeight = 99
     object Label1: TLabel [0]
-      Left = 8
-      Top = 38
+      Left = 224
+      Top = 41
       Width = 78
       Height = 15
       Caption = 'Date d'#233'compte'
     end
     object Label2: TLabel [1]
       Left = 8
-      Top = 67
+      Top = 71
       Width = 38
       Height = 15
       Caption = 'Libell'#233
@@ -72,12 +105,19 @@ inherited frmEditDecomptes: TfrmEditDecomptes
       Caption = 'Ecritures'
       OnClick = spbEditEcrituresClick
     end
+    object Label3: TLabel [3]
+      Left = 8
+      Top = 41
+      Width = 75
+      Height = 15
+      Caption = 'Compte Banq.'
+    end
     object edPeriode: TPXDateEdit
-      Left = 92
-      Top = 34
+      Left = 308
+      Top = 38
       Width = 121
       Height = 23
-      TabOrder = 1
+      TabOrder = 2
       Text = ''
       OnChange = edFieldChange
       DlgIncomplete = 'Votre Saisie est Incompl'#232'te'
@@ -86,19 +126,32 @@ inherited frmEditDecomptes: TfrmEditDecomptes
     end
     object edLibelle: TEdit
       Left = 92
-      Top = 63
+      Top = 68
       Width = 489
       Height = 23
       CharCase = ecUpperCase
-      TabOrder = 2
+      TabOrder = 3
       OnChange = edFieldChange
+    end
+    object edBanqCpte: TEdit
+      Left = 92
+      Top = 39
+      Width = 121
+      Height = 23
+      CharCase = ecUpperCase
+      TabOrder = 1
+      OnChange = edFieldChange
+      OnKeyUp = edBanqCpteKeyUp
     end
   end
   inherited O_qry: TOracleDataSet
     SQL.Strings = (
-      'select id,periode,libelle,to_char(periode,'#39'MM-YYYY'#39') periode_lib'
-      'from compta.decompte'
-      'order by periode desc')
+      
+        'select d.id,bc.Code banqcpte,periode,d.libelle,to_char(d.periode' +
+        ','#39'MM-YYYY'#39') periode_lib'
+      'from compta.decompte d, compta.BanqCpte bc'
+      'where bc.id=d.banqCpte_id'
+      'order by 3 desc,2')
     QBEDefinition.QBEFieldDefs = {
       050000000400000004000000490044000100000000000E000000500045005200
       49004F00440045000100000000000E0000004C004900420045004C004C004500
@@ -118,5 +171,21 @@ inherited frmEditDecomptes: TfrmEditDecomptes
     Connected = True
     Left = 456
     Top = 201
+  end
+  object qryF1: TOracleDataSet
+    Optimize = False
+    Left = 400
+    Top = 289
+  end
+  object LookupDlg: TLookupDialog
+    LookupTable = qryF1
+    Caption = 'Aide'
+    Font.Charset = ANSI_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'Times New Roman'
+    Font.Style = [fsBold]
+    Left = 312
+    Top = 289
   end
 end
